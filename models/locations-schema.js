@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const locationSchema = new mongoose.Schema({
+const locationSchema = new Schema({
   city: { type: String },
   state: { type: String },
   zip_code: { type: String },
@@ -23,5 +23,5 @@ locationSchema.virtual("printAgents", {
 locationSchema.set("toJSON", { virtuals: true });
 locationSchema.set("toObject", { virtuals: true });
 
-const Location = mongoose.model("Location", locationSchema);
-module.exports = Location;
+const Location = model("Location", locationSchema);
+export default Location;

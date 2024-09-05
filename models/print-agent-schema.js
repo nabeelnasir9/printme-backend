@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
-const printAgentSchema = new mongoose.Schema({
+const printAgentSchema = new Schema({
   full_name: { type: String, required: true },
   email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
   password: { type: String, required: true, minlength: 6 },
@@ -23,9 +23,9 @@ const printAgentSchema = new mongoose.Schema({
       latitude: { type: Number },
     },
   },
-  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+  cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
   locationRef: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Location",
   },
   created_at: { type: Date, default: Date.now },
@@ -81,5 +81,5 @@ printAgentSchema.set("toObject", {
   virtuals: true,
 });
 
-const PrintAgent = mongoose.model("PrintAgent", printAgentSchema);
-module.exports = PrintAgent;
+const PrintAgent = model("PrintAgent", printAgentSchema);
+export default PrintAgent;

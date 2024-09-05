@@ -1,13 +1,13 @@
-const express = require("express");
-const verifyToken = require("../../middleware/verifyToken.js");
-const PrintAgent = require("../../models/print-agent-schema.js");
-const Location = require("../../models/locations-schema.js");
-const otpGenerator = require("otp-generator");
-const mailOptions = require("../../utils/mailOTP.js");
-const nodemailer = require("nodemailer");
-const Card = require("../../models/card-schema.js");
-const validateUpdateCard = require("../../middleware/validateCard.js");
-const PrintJob = require("../../models/print-job-schema.js");
+import express from "express";
+import verifyToken from "../../middleware/verifyToken.js";
+import PrintAgent from "../../models/print-agent-schema.js";
+import Location from "../../models/locations-schema.js";
+import otpGenerator from "otp-generator";
+import mailOptions from "../../utils/mailOTP.js";
+import nodemailer from "nodemailer";
+import Card from "../../models/card-schema.js";
+import validateUpdateCard from "../../middleware/validateCard.js";
+import PrintJob from "../../models/print-job-schema.js";
 const router = express.Router();
 
 router.post("/additional-info", verifyToken("printAgent"), async (req, res) => {
@@ -305,5 +305,4 @@ router.get("/print-jobs", verifyToken("printAgent"), async (req, res) => {
     res.status(500).json({ message: "Server error", err });
   }
 });
-
-module.exports = router;
+export default router;

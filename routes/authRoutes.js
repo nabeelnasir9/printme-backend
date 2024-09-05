@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const customerAuthRoutes = require("./customer/CustomerAuthRoutes");
-const printAgentAuthRoutes = require("./print-agent/printAgentAuthRoutes");
+import customerAuthRoutes from "./customer/CustomerAuthRoutes.js";
+import printAgentAuthRoutes from "./print-agent/printAgentAuthRoutes.js";
 
 router.use("/customer", customerAuthRoutes);
 router.use("/print-agent", printAgentAuthRoutes);
 
-module.exports = router;
+export default router;

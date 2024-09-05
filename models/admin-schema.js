@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
-const adminSchema = new mongoose.Schema({
+const adminSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
   password: { type: String, required: true, minlength: 6 },
@@ -31,5 +31,5 @@ adminSchema.set("toJSON", {
   },
 });
 
-const Admin = mongoose.model("Admin", adminSchema);
-module.exports = Admin;
+const Admin = model("Admin", adminSchema);
+export default Admin;

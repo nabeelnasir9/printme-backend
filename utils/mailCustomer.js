@@ -180,5 +180,4 @@ const customerMailOptions = (email, otp, full_name) => {
 `,
   };
 };
-
-module.exports = customerMailOptions;
+export default customerMailOptions;

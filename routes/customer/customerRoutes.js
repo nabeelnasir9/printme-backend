@@ -1,9 +1,9 @@
-const express = require("express");
-const Location = require("../../models/locations-schema.js");
-const verifyToken = require("../../middleware/verifyToken.js");
-const Customer = require("../../models/customer-schema.js");
-const Card = require("../../models/card-schema.js");
-const validateUpdateCard = require("../../middleware/validateCard.js");
+import express from "express";
+import Location from "../../models/locations-schema.js";
+import verifyToken from "../../middleware/verifyToken.js";
+import Customer from "../../models/customer-schema.js";
+import Card from "../../models/card-schema.js";
+import validateUpdateCard from "../../middleware/validateCard.js";
 const router = express.Router();
 
 router.post("/create-card", verifyToken("customer"), async (req, res) => {
@@ -260,5 +260,4 @@ router.get(
     }
   },
 );
-
-module.exports = router;
+export default router;

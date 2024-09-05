@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const cardSchema = new mongoose.Schema({
-  user_id: { type: mongoose.Schema.Types.ObjectId, required: true },
+const cardSchema = new Schema({
+  user_id: { type: Schema.Types.ObjectId, required: true },
   ref_type: { type: String, enum: ["Customer", "PrintAgent"], required: true },
   bank_name: { type: String, required: true },
   cvv: { type: String, required: true, minlength: 3 },
@@ -31,5 +31,5 @@ cardSchema.pre("save", function (next) {
   next();
 });
 
-const Card = mongoose.model("Card", cardSchema);
-module.exports = Card;
+const Card = model("Card", cardSchema);
+export default Card;

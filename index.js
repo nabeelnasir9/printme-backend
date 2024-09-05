@@ -1,14 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const morgan = require("morgan");
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import morgan from "morgan";
 
-const customerRoutes = require("./routes/customer/customerRoutes");
-const authRoutes = require("./routes/authRoutes");
-const printAgentRoutes = require("./routes/print-agent/printAgentRoutes.js");
-const adminRoutes = require("./routes/adminRoutes.js");
-const printJobRoutes = require("./routes/printjobRoutes.js");
+import customerRoutes from "./routes/customer/customerRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import printAgentRoutes from "./routes/print-agent/printAgentRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import printJobRoutes from "./routes/printjobRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;

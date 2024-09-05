@@ -1,4 +1,4 @@
-const sendCustomerConfirmationEmail = async (
+export const sendCustomerConfirmationEmail = async (
   customerEmail,
   customerFullName,
   confirmationCode,
@@ -192,7 +192,7 @@ const sendCustomerConfirmationEmail = async (
 
   return transporter.sendMail(mailOptions);
 };
-const sendPrintAgentNotificationEmail = async (
+export const sendPrintAgentNotificationEmail = async (
   printAgentEmail,
   printAgentFullName,
   printJobTitle,
@@ -369,8 +369,4 @@ const sendPrintAgentNotificationEmail = async (
   };
 
   return transporter.sendMail(mailOptions);
-};
-module.exports = {
-  sendCustomerConfirmationEmail,
-  sendPrintAgentNotificationEmail,
 };

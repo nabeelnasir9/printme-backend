@@ -1,22 +1,23 @@
-const express = require("express");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const PrintAgent = require("../models/print-agent-schema.js");
-const verifyToken = require("../middleware/verifyToken.js");
-const {
+import express from "express";
+import Stripe from "stripe";
+import PrintAgent from "../models/print-agent-schema.js";
+import verifyToken from "../middleware/verifyToken.js";
+import {
   sendCustomerConfirmationEmail,
   sendPrintAgentNotificationEmail,
-} = require("../utils/mailOrder.js");
-const transporter = require("../utils/transporter.js");
-const PrintJob = require("../models/print-job-schema.js");
-const otpGenerator = require("otp-generator");
-const Customer = require("../models/customer-schema.js");
-const router = express.Router();
-const fs = require("fs");
-const multer = require("multer");
-const util = require("util");
-const cloudinary = require("cloudinary").v2;
+} from "../utils/mailOrder.js";
+import transporter from "../utils/transporter.js";
+import PrintJob from "../models/print-job-schema.js";
+import otpGenerator from "otp-generator";
+import Customer from "../models/customer-schema.js";
+import fs from "fs";
+import multer from "multer";
+import util from "util";
+import cloudinary from "cloudinary";
 
+const router = express.Router();
 const unlinkFile = util.promisify(fs.unlink);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -246,5 +247,4 @@ router.post(
     }
   },
 );
-
-module.exports = router;
+export default router;

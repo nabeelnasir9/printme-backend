@@ -1,5 +1,5 @@
-const { body, validationResult } = require("express-validator");
-const Card = require("../models/card-schema.js"); // Adjust the path as necessary
+import { body, validationResult } from "express-validator";
+import Card from "../models/card-schema.js"; // Adjust the path as necessary
 
 const validateUpdateCard = [
   body().custom((_value, { req }) => {
@@ -39,4 +39,4 @@ const validateUpdateCard = [
   },
 ];
 
-module.exports = validateUpdateCard;
+export default validateUpdateCard;

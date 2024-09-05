@@ -1,11 +1,11 @@
-const Customer = require("../../models/customer-schema.js");
-const express = require("express");
-const customerMailOptions = require("../../utils/mailCustomer.js");
-const bcrypt = require("bcryptjs");
-const transporter = require("../../utils/transporter.js");
-const jwt = require("jsonwebtoken");
-const otpGenerator = require("otp-generator");
-const router = express.Router();
+import Customer from "../../models/customer-schema.js";
+import { Router } from "express";
+import customerMailOptions from "../../utils/mailCustomer.js";
+import bcrypt from "bcryptjs";
+import transporter from "../../utils/transporter.js";
+import jsonwebtoken from "jsonwebtoken";
+import otpGenerator from "otp-generator";
+const router = Router();
 
 router.post("/signup", async (req, res) => {
   try {
@@ -16,7 +16,7 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const otp = otpGenerator.generate(6, {
+    const otp = otpGenerator.generate({
       digits: true,
       alphabets: true,
       upperCase: true,
@@ -78,7 +78,7 @@ router.post("/verify-otp", async (req, res) => {
         role: "customer",
       },
     };
-    jwt.sign(
+    jsonwebtoken.sign(
       payload,
       process.env.JWT_SECRET,
       //INFO: revert it back after dev to 5h
@@ -118,7 +118,7 @@ router.post("/login", async (req, res) => {
         role: "customer",
       },
     };
-    jwt.sign(
+    jsonwebtoken.sign(
       payload,
       process.env.JWT_SECRET,
       //INFO: revert it back after dev to 5h
@@ -136,4 +136,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

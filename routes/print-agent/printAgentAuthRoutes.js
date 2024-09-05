@@ -1,12 +1,14 @@
-const PrintAgent = require("../../models/print-agent-schema.js");
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const otpGenerator = require("otp-generator");
-const transporter = require("../../utils/transporter");
-const agentMailOptions = require("../../utils/mailPrintAgent.js");
+import PrintAgent from "../../models/print-agent-schema.js";
+import express from "express";
+import bcrypt from "bcryptjs";
+import jsonwebtoken from "jsonwebtoken";
+
+import otpGenerator from "otp-generator";
+import transporter from "../../utils/transporter.js";
+import agentMailOptions from "../../utils/mailPrintAgent.js";
 const router = express.Router();
 
+const jwt = jsonwebtoken;
 // POST /api/auth/print-agent/signup (print-agent)
 /**
  *
@@ -142,4 +144,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

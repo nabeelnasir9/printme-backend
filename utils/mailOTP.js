@@ -175,5 +175,4 @@ const mailOptions = (email, full_name, otp) => {
 `,
   };
 };
-
-module.exports = mailOptions;
+export default mailOptions;

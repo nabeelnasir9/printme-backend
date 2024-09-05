@@ -1,13 +1,13 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const PrintJob = require("../models/print-job-schema.js");
-const Admin = require("../models/admin-schema");
-const mongoose = require("mongoose");
-const Location = require("../models/locations-schema.js");
-const Customer = require("../models/customer-schema.js");
-const PrintAgent = require("../models/print-agent-schema.js");
-const jwt = require("jsonwebtoken");
-const verifyToken = require("../middleware/verifyToken");
+import express from "express";
+import bcrypt from "bcryptjs";
+import PrintJob from "../models/print-job-schema.js";
+import Admin from "../models/admin-schema.js";
+import mongoose from "mongoose";
+import Location from "../models/locations-schema.js";
+import Customer from "../models/customer-schema.js";
+import PrintAgent from "../models/print-agent-schema.js";
+import jwt from "jsonwebtoken";
+import verifyToken from "../middleware/verifyToken.js";
 const router = express.Router();
 
 router.post("/create-admin", async (req, res) => {
@@ -356,5 +356,4 @@ router.get("/print-jobs", verifyToken("admin"), async (_req, res) => {
     res.status(500).json({ message: "Server error", err });
   }
 });
-
-module.exports = router;
+export default router;

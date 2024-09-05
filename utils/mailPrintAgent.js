@@ -179,5 +179,4 @@ const agentMailOptions = (email, otp, full_name) => {
 `,
   };
 };
-
-module.exports = agentMailOptions;
+export default agentMailOptions;

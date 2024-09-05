@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const printJobSchema = new mongoose.Schema({
-  customer_id: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
-  print_agent_id: { type: mongoose.Schema.Types.ObjectId, ref: "PrintAgent" },
+const printJobSchema = new Schema({
+  customer_id: { type: Schema.Types.ObjectId, ref: "Customer" },
+  print_agent_id: { type: Schema.Types.ObjectId, ref: "PrintAgent" },
   file_path: { type: String, required: true },
   print_job_title: { type: String, required: true },
   confirmation_code: { type: String },
@@ -24,6 +24,6 @@ printJobSchema.pre("save", function (next) {
   next();
 });
 
-const PrintJob = mongoose.model("PrintJob", printJobSchema);
+const PrintJob = model("PrintJob", printJobSchema);
 
-module.exports = PrintJob;
+export default PrintJob;

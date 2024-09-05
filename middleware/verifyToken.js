@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jsonwebtoken from "jsonwebtoken";
 
 const verifyToken = (requiredRole) => {
   return (req, res, next) => {
@@ -18,7 +18,7 @@ const verifyToken = (requiredRole) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET);
 
       req.user = decoded.user;
 
@@ -40,5 +40,4 @@ const verifyToken = (requiredRole) => {
     }
   };
 };
-
-module.exports = verifyToken;
+export default verifyToken;

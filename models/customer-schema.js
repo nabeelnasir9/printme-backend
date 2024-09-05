@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
-const customerSchema = new mongoose.Schema({
+const customerSchema = new Schema({
   full_name: { type: String, required: true },
   email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
   password: { type: String, required: true, minlength: 6 },
-  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+  cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
   location: {
     address: { type: String },
     city: { type: String },
@@ -14,7 +14,7 @@ const customerSchema = new mongoose.Schema({
     country: { type: String },
   },
   locationRef: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Location",
   },
   otp: { type: String },
@@ -68,5 +68,5 @@ customerSchema.pre("save", function (next) {
   next();
 });
 
-const Customer = mongoose.model("Customer", customerSchema);
-module.exports = Customer;
+const Customer = model("Customer", customerSchema);
+export default Customer;
