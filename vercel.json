@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "api/index.js"
+      }
+    ],
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "ignoreCommand": "git diff --quiet HEAD^ HEAD ./src ./api ./public package.json package-lock.json"
+  }
+  
