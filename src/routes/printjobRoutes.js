@@ -61,7 +61,6 @@ router.post(
         await customer.save();
       }
 
-      // Upload the file to Cloudinary and wait for the result
       const result = await uploadToCloudinary(req.file.buffer);
       const file_path = result.secure_url;
       let pages = 1;
