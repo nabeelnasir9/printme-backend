@@ -2,6 +2,8 @@ const express = require("express");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const PrintAgent = require("../models/print-agent-schema.js");
 const verifyToken = require("../middleware/verifyToken.js");
+const calculateCost = require("../utils/calculateCost.js");
+const uploadToCloudinary = require("../utils/uploadCloudinary.js");
 const {
   sendCustomerConfirmationEmail,
   sendPrintAgentNotificationEmail,
@@ -11,12 +13,8 @@ const PrintJob = require("../models/print-job-schema.js");
 const otpGenerator = require("otp-generator");
 const Customer = require("../models/customer-schema.js");
 const router = express.Router();
-const fs = require("fs");
 const multer = require("multer");
-const util = require("util");
 const cloudinary = require("cloudinary").v2;
-
-const unlinkFile = util.promisify(fs.unlink);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -25,46 +23,7 @@ cloudinary.config({
   secure: true,
 });
 
-const upload = multer({ dest: "uploads/" });
-
-const calculateCost = (pages, isColor, createdAt) => {
-  let baseCost, serviceFee, timingFee;
-  if (pages <= 5) {
-    baseCost = isColor ? 6.64 : 5.53;
-    serviceFee = isColor ? 0.73 : 0.61;
-  } else if (pages <= 10) {
-    baseCost = isColor ? 9.42 : 8.31;
-    serviceFee = isColor ? 1.04 : 0.91;
-  } else if (pages <= 15) {
-    baseCost = isColor ? 12.19 : 11.08;
-    serviceFee = isColor ? 1.34 : 1.22;
-  } else if (pages <= 20) {
-    baseCost = isColor ? 14.97 : 13.86;
-    serviceFee = isColor ? 1.65 : 1.52;
-  } else if (pages <= 25) {
-    baseCost = isColor ? 17.74 : 16.63;
-    serviceFee = isColor ? 1.95 : 1.83;
-  } else {
-    baseCost = isColor ? 0.75 * pages : 0.65 * pages;
-    serviceFee = 0.11 * baseCost;
-  }
-
-  const hour = createdAt.getHours();
-  if (hour >= 20 && hour < 23) {
-    timingFee = 6.99;
-  } else if (hour >= 23 || hour < 2) {
-    timingFee = 9.99;
-  } else if (hour >= 2 && hour < 5) {
-    timingFee = 12.99;
-  } else if (hour >= 5 && hour < 8) {
-    timingFee = 9.99;
-  } else {
-    timingFee = 0;
-  }
-
-  const totalCost = baseCost + serviceFee + timingFee;
-  return totalCost.toFixed(2);
-};
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.post(
   "/create-print-job",
@@ -102,15 +61,8 @@ router.post(
         await customer.save();
       }
 
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        resource_type: "auto",
-        folder: "print_jobs",
-        use_filename: true,
-        unique_filename: true,
-      });
-
-      await unlinkFile(req.file.path);
-
+      // Upload the file to Cloudinary and wait for the result
+      const result = await uploadToCloudinary(req.file.buffer);
       const file_path = result.secure_url;
       let pages = 1;
 
@@ -142,11 +94,6 @@ router.post(
         .json({ message: "Print job created successfully", printJob });
     } catch (err) {
       console.error(err.message);
-      if (req.file) {
-        await unlinkFile(req.file.path).catch((unlinkError) =>
-          console.error("Failed to delete file:", unlinkError),
-        );
-      }
       res.status(500).json({ message: "Server error", err: err.message });
     }
   },
