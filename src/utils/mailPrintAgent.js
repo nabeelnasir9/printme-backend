@@ -75,7 +75,7 @@ const agentMailOptions = (email, otp, full_name) => {
                         color: #f7801a;
                       "
                     >
-                      OTP for Print Agents
+                      Verification Code for Print Agents
                     </h1>
                     <p
                       style="

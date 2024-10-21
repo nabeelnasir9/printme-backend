@@ -55,7 +55,6 @@ router.post("/signup", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      alphabets: true,
       upperCase: true,
       specialChars: false,
     });
@@ -187,7 +186,6 @@ router.post("/resend-otp", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      alphabets: true,
       upperCase: true,
       specialChars: false,
     });
@@ -222,7 +220,6 @@ router.post("/forgot-password", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      alphabets: true,
       upperCase: true,
       specialChars: false,
     });

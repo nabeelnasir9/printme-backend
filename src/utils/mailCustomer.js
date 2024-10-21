@@ -75,7 +75,7 @@ const customerMailOptions = (email, otp, full_name) => {
                         color: #f7801a;
                       "
                     >
-                      Your OTP
+                      Your Verification Code
                     </h1>
                     <p
                       style="

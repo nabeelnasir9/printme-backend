@@ -168,7 +168,6 @@ router.post("/initiate-payment", verifyToken("customer"), async (req, res) => {
 
       const confirmationCode = otpGenerator.generate(6, {
         digits: true,
-        alphabets: true,
         upperCase: true,
         specialChars: false,
       });

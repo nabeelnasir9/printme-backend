@@ -75,7 +75,7 @@ const mailOptions = (email, full_name, otp) => {
                         color: #f7801a;
                       "
                     >
-                      OTP for Availability
+                      Verification Code for Availability
                     </h1>
                     <p
                       style="

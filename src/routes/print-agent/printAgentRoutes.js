@@ -230,7 +230,6 @@ router.get("/online-status", verifyToken("printAgent"), async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      alphabets: true,
       upperCase: true,
       specialChars: false,
     });
