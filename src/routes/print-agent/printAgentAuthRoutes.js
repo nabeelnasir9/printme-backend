@@ -55,7 +55,8 @@ router.post("/signup", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      upperCase: true,
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
       specialChars: false,
     });
     const otp_expiry = new Date(Date.now() + 300000); // OTP expires in 5 minutes
@@ -186,7 +187,8 @@ router.post("/resend-otp", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      upperCase: true,
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
       specialChars: false,
     });
     const otp_expiry = new Date(Date.now() + 300000);
@@ -220,7 +222,8 @@ router.post("/forgot-password", async (req, res) => {
 
     const otp = otpGenerator.generate(6, {
       digits: true,
-      upperCase: true,
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
       specialChars: false,
     });
     const otp_expiry = new Date(Date.now() + 300000);
