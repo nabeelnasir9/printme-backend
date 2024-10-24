@@ -31,7 +31,8 @@ router.post(
   upload.single("file"),
   async (req, res) => {
     try {
-      let { print_job_title, print_job_description, is_color } = req.body;
+      let { print_job_title, print_job_description, is_color, no_of_copies } =
+        req.body;
 
       is_color = is_color === "true";
 
@@ -73,7 +74,12 @@ router.post(
       }
 
       const createdAt = new Date();
-      const total_cost = calculateCost(pages, is_color, createdAt);
+      const total_cost = calculateCost(
+        pages,
+        is_color,
+        createdAt,
+        no_of_copies,
+      );
 
       const printJob = new PrintJob({
         customer_id: req.user.id,
@@ -81,6 +87,7 @@ router.post(
         print_job_description,
         file_path,
         is_color,
+        no_of_copies,
         pages,
         total_cost,
         created_at: createdAt,

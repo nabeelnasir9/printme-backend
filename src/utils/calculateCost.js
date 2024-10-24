@@ -1,5 +1,7 @@
-const calculateCost = (pages, isColor, createdAt) => {
-  let baseCost, serviceFee, timingFee;
+const calculateCost = (pages, isColor, createdAt, no_of_copies = 1) => {
+  let baseCost, serviceFee;
+
+  // Calculate base cost and service fee based on number of pages and color option
   if (pages <= 5) {
     baseCost = isColor ? 6.64 : 5.53;
     serviceFee = isColor ? 0.73 : 0.61;
@@ -20,20 +22,26 @@ const calculateCost = (pages, isColor, createdAt) => {
     serviceFee = 0.11 * baseCost;
   }
 
-  const hour = createdAt.getHours();
-  if (hour >= 20 && hour < 23) {
-    timingFee = 6.99;
-  } else if (hour >= 23 || hour < 2) {
-    timingFee = 9.99;
-  } else if (hour >= 2 && hour < 5) {
-    timingFee = 12.99;
-  } else if (hour >= 5 && hour < 8) {
-    timingFee = 9.99;
-  } else {
-    timingFee = 0;
-  }
+  // Multiply base cost and service fee by the amount
+  baseCost *= no_of_copies;
+  serviceFee *= no_of_copies;
 
-  const totalCost = baseCost + serviceFee + timingFee;
+  // Calculate timing fee based on the hour of job creation
+  // const hour = createdAt.getHours();
+  // if (hour >= 20 && hour < 23) {
+  //   timingFee = 6.99;
+  // } else if (hour >= 23 || hour < 2) {
+  //   timingFee = 9.99;
+  // } else if (hour >= 2 && hour < 5) {
+  //   timingFee = 12.99;
+  // } else if (hour >= 5 && hour < 8) {
+  //   timingFee = 9.99;
+  // } else {
+  //   timingFee = 0;
+  // }
+
+  // Calculate the total cost
+  const totalCost = baseCost + serviceFee;
   return totalCost.toFixed(2);
 };
 

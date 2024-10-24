@@ -8,6 +8,7 @@ const printJobSchema = new mongoose.Schema({
   confirmation_code: { type: String },
   is_color: { type: Boolean, required: true },
   print_job_description: { type: String, required: true },
+  no_of_copies: { type: Number, required: true },
   pages: { type: Number, required: true },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
